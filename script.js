@@ -1,14 +1,14 @@
 var MIDI = function() {
-  
+
   this.inputs = [];
   this.outputs = [];
-  
+
   var that = this;
-  
+
   this.init = function() {
     return navigator.requestMIDIAccess( {sysex: true} ).then(that._success, that._failure);
   }
-  
+
   this._success = function(midi) {
     console.log(midi);
     that.ctx = midi;
@@ -18,14 +18,14 @@ var MIDI = function() {
       that.inputs.push(i.value);
       console.log(i.value);
     }
-    
+
     it = midi.outputs.values();
     for(var o = it.next(); !o.done; o = it.next()) {
       that.outputs.push(o.value);
       console.log(o.value);
     }
   }
-  
+
   this._failure = function(error) {
     console.log(error);
   }
@@ -46,13 +46,13 @@ var nanoKONTROL = function() {
       }
     }
   }
-  
+
   this._onEvent = function(e) {
     console.log(e);
     var id = -1;
     var kind = "";
     var value = e.data[2];
-    
+
     if(0 <= e.data[1] && e.data[1] < 8) {
       id = e.data[1];
       kind = "SLIDER";
@@ -105,7 +105,7 @@ var nanoKONTROL = function() {
           break;
       }
     }
-        
+
     that.callback(id, kind, value)
   }
 }
