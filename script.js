@@ -109,17 +109,3 @@ var nanoKONTROL = function() {
     that.callback(id, kind, value)
   }
 }
-
-window.onload = function() {
-  console.log("onload!!!!");
-  midi = new MIDI();
-  midi.init().then(function() {
-    kontrol = new nanoKONTROL();
-    console.log(kontrol);
-    kontrol.init(midi, cb);
-  }, null);
-}
-
-var cb = function(id, kind, value) {
-  console.log(id, kind, value);
-}
